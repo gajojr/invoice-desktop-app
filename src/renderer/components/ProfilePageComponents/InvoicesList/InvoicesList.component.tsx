@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
+import axios from 'axios';
 import { InvoiceInterface } from '../InvoiceInterface';
 import { CardsContainer, CardContainer } from './InvoicesList.styles';
 import InvoiceCard from '../InvoiceCard/InvoiceCard.component';
@@ -10,8 +11,14 @@ const InvoicesList = () => {
   const [invoices, setInvoices] = useState<InvoiceInterface[]>([]);
 
   useEffect(() => {
-    console.log('Broj faktura', invoices.length);
-    console.log(invoices);
+    (async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/invoices');
+        setInvoices(response.data);
+      } catch (err: any) {
+        message.error('Greska u aplikaciji!');
+      }
+    })();
   }, [invoices]);
 
   if (!invoices.length) {
@@ -33,7 +40,7 @@ const InvoicesList = () => {
 
   return (
     <CardsContainer>
-      <span>Vase fakture:</span>
+      <h2 style={{ color: '#000' }}>Vase fakture:</h2>
       <CardContainer>
         {invoices.map((invoice: InvoiceInterface) => (
           <InvoiceCard key={invoice.id} invoice={invoice} />
