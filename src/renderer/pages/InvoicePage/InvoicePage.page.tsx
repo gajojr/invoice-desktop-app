@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-// import GeneratePDFButton from '../../components/InvoicePageComponents/GeneratePDFButton/GeneratePDFButton.component';
+import GeneratePDFButton from '../../components/InvoicePageComponents/GeneratePDFButton/GeneratePDFButton.component';
 
 import InvoicePaper from '../../components/InvoicePageComponents/InvoicePaper/InvoicePaper.component';
 
@@ -8,7 +8,7 @@ const InvoicePage = () => {
 
   return (
     <main>
-      {/* <GeneratePDFButton id={id} /> */}
+      <GeneratePDFButton id={id} />
       <InvoicePaper id={id} />
     </main>
   );

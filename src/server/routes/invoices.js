@@ -29,16 +29,16 @@ router.get('/:id', async (req, res) => {
 
     const invoice = await pool.query(
       `
-        SELECT  
-          name AS "invoiceName", 
-          company_name AS "toCompany", 
-          client_address AS "toAddress", 
-          client_city AS "toCity", 
-          client_pib AS "toPib", 
-          closing_date AS "closingDate", 
-          stamp_needed AS "stampNeeded", 
-          sign_needed AS "signNeeded", 
-          invoices.pdv AS pdv 
+        SELECT
+          name AS "invoiceName",
+          company_name AS "toCompany",
+          client_address AS "toAddress",
+          client_city AS "toCity",
+          client_pib AS "toPib",
+          closing_date AS "closingDate",
+          stamp_needed AS "stampNeeded",
+          sign_needed AS "signNeeded",
+          invoices.pdv AS pdv
         FROM invoices
         WHERE id = '${id}';
       `
@@ -46,12 +46,12 @@ router.get('/:id', async (req, res) => {
 
     const services = await pool.query(
       `
-        SELECT 
-          id, 
-          service_type as "serviceType", 
-          unit, 
-          amount, 
-          price_per_unit as "pricePerUnit", 
+        SELECT
+          id,
+          service_type as "serviceType",
+          unit,
+          amount,
+          price_per_unit as "pricePerUnit",
           amount * price_per_unit AS price
         FROM services
         WHERE invoice_id = '${id}';
@@ -70,29 +70,29 @@ router.post('/', async (req, res) => {
 
     const invoiceId = await pool.query(
       `
-        INSERT INTO 
+        INSERT INTO
           invoices(
-              name, 
-              company_name, 
-              client_address, 
-              client_city, 
-              client_pib, 
-              closing_date, 
-              stamp_needed, 
-              sign_needed, 
+              name,
+              company_name,
+              client_address,
+              client_city,
+              client_pib,
+              closing_date,
+              stamp_needed,
+              sign_needed,
               pdv
           )
         VALUES(
-            '${body.invoiceName}', 
-            '${body.companyName}', 
-            '${body.address}', 
-            '${body.city}', 
-            '${body.pib}', 
-            '${body.closingDate}', 
-            '${body.stamp}', 
-            '${body.sign}', 
+            '${body.invoiceName}',
+            '${body.companyName}',
+            '${body.address}',
+            '${body.city}',
+            '${body.pib}',
+            '${body.closingDate}',
+            '${body.stamp}',
+            '${body.sign}',
             '${body.pdv}'
-        );   
+        );
 
         SELECT CURRVAL(pg_get_serial_sequence('invoices','id'))
       `
@@ -134,7 +134,7 @@ router.delete('/:id', async (req, res) => {
     await pool.query(
       `
         DELETE FROM invoices
-        WHERE id = '${id}' 
+        WHERE id = '${id}'
       `
     );
 
