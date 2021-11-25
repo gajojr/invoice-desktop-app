@@ -19,7 +19,7 @@ const InvoicesList = () => {
         message.error('Greska u aplikaciji!');
       }
     })();
-  }, [invoices]);
+  }, []);
 
   if (!invoices.length) {
     return (
@@ -40,6 +40,13 @@ const InvoicesList = () => {
 
   return (
     <CardsContainer>
+      <Button type="primary">
+        <h3>
+          <Link to="/create-invoice" style={{ color: '#000' }}>
+            Kreiraj novu fakturu
+          </Link>
+        </h3>
+      </Button>
       <h2 style={{ color: '#000' }}>Vase fakture:</h2>
       <CardContainer>
         {invoices.map((invoice: InvoiceInterface) => (

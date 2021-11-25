@@ -78,8 +78,26 @@ const createWindow = async () => {
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      webSecurity: false,
     },
   });
+
+  // mainWindow.webContents.session.webRequest.onBeforeSendHeaders(
+  //   (details, callback) => {
+  //     callback({ requestHeaders: { Origin: '*', ...details.requestHeaders } });
+  //   }
+  // );
+
+  // mainWindow.webContents.session.webRequest.onHeadersReceived(
+  //   (details, callback) => {
+  //     callback({
+  //       responseHeaders: {
+  //         'Access-Control-Allow-Origin': ['*'],
+  //         ...details.responseHeaders,
+  //       },
+  //     });
+  //   }
+  // );
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 
