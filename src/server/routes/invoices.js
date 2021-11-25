@@ -23,6 +23,47 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const invoice = await pool.query(
+      `
+        SELECT  
+          name AS "invoiceName", 
+          company_name AS "toCompany", 
+          client_address AS "toAddress", 
+          client_city AS "toCity", 
+          client_pib AS "toPib", 
+          closing_date AS "closingDate", 
+          stamp_needed AS "stampNeeded", 
+          sign_needed AS "signNeeded", 
+          invoices.pdv AS pdv 
+        FROM invoices
+        WHERE id = '${id}';
+      `
+    );
+
+    const services = await pool.query(
+      `
+        SELECT 
+          id, 
+          service_type as "serviceType", 
+          unit, 
+          amount, 
+          price_per_unit as "pricePerUnit", 
+          amount * price_per_unit AS price
+        FROM services
+        WHERE invoice_id = '${id}';
+      `
+    );
+
+    res.json({ exchangeData: invoice.rows[0], services: services.rows });
+  } catch (err) {
+    res.status(500).json({ error: 'Greska u aplikaciji!' });
+  }
+});
+
 router.post('/', async (req, res) => {
   try {
     const { body } = req;

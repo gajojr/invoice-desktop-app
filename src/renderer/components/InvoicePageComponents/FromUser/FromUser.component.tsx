@@ -1,20 +1,18 @@
-import InvoiceDataInterface from '../InvoiceDataInterface';
+const FromUser = () => {
+  return (
+    <div>
+      <h3>Od:</h3>
+      <h1>Aco Obrenovic</h1>
+      <p>Aco Obrenovic Dji-Mi</p>
+      <p>Pranjanji BB</p>
+      <p>Pranjanji - postanski kod</p>
+      <p>PIB: 1234354325</p>
+      <p>Giro nalog: 1235555212</p>
+      <p>E-mail: temp@gmail.com</p>
 
-const FromUser = ({ invoiceData }: { invoiceData: InvoiceDataInterface }) => {
-    return (
-        <div>
-            <h3>From:</h3>
-            <h1>{invoiceData.from_name} {invoiceData.from_lastname}</h1>
-            <p>{invoiceData.from_name} {invoiceData.from_lastname} {invoiceData.from_company}</p>
-            <p>{invoiceData.from_address}</p>
-            <p>{invoiceData.from_city} {invoiceData.from_postal_code}</p>
-            <p>PIB: {invoiceData.from_pib}</p>
-            <p>Giro account: {invoiceData.from_giro_account}</p>
-            <p>E-mail: {invoiceData.from_email}</p>
-
-            <hr />
-        </div>
-    )
-}
+      <hr />
+    </div>
+  );
+};
 
 export default FromUser;

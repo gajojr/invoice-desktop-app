@@ -1,43 +1,47 @@
 import ServiceInterface from '../ServiceInterface';
 import { ServicesTable, Td, Th } from './Services.style';
 
-const Services = ({ services, totalPriceOfAllServices }: { services: ServiceInterface[]; totalPriceOfAllServices: number; }) => {
-    return (
-        <div>
-            <ServicesTable>
-                <thead>
-                    <tr>
-                        <Th>Service type</Th>
-                        <Th>Unit</Th>
-                        <Th>Amount</Th>
-                        <Th>Price per unit</Th>
-                        <Th>total</Th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        services.map((service: ServiceInterface) => {
-                            return (
-                                <tr key={service.id}>
-                                    <Td>{service.service_type}</Td>
-                                    <Td>{service.unit}</Td>
-                                    <Td>{service.amount}</Td>
-                                    <Td>{service.price_per_unit}</Td>
-                                    <Td>{service.amount * service.price_per_unit}</Td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </ServicesTable>
+const Services = ({
+  services,
+  totalPriceOfAllServices,
+}: {
+  services: ServiceInterface[];
+  totalPriceOfAllServices: number;
+}) => {
+  return (
+    <div>
+      <ServicesTable>
+        <thead>
+          <tr>
+            <Th>Tip usluge</Th>
+            <Th>Jedinica</Th>
+            <Th>Kolicina</Th>
+            <Th>Cena po jedinici</Th>
+            <Th>Ukupno</Th>
+          </tr>
+        </thead>
+        <tbody>
+          {services.map((service: ServiceInterface) => {
+            return (
+              <tr key={service.id}>
+                <Td>{service.serviceType}</Td>
+                <Td>{service.unit}</Td>
+                <Td>{service.amount}</Td>
+                <Td>{service.pricePerUnit}</Td>
+                <Td>{service.amount * service.pricePerUnit}</Td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </ServicesTable>
 
-            <hr />
+      <hr />
 
-            <h3>Total price of all services: {totalPriceOfAllServices}(RSD)</h3>
+      <h3>Ukupna cena svih usluga: {totalPriceOfAllServices}(RSD)</h3>
 
-            <hr />
-        </div>
-    )
-}
+      <hr />
+    </div>
+  );
+};
 
 export default Services;

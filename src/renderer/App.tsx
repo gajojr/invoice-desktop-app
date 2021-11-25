@@ -6,7 +6,7 @@ const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage.page'));
 const CreateInvoicePage = lazy(
   () => import('./pages/CreateInvoicePage/CreateInvoicePage.page')
 );
-// const InvoicePage = lazy(() => import('./pages/InvoicePage/InvoicePage.page'));
+const InvoicePage = lazy(() => import('./pages/InvoicePage/InvoicePage.page'));
 // const UpdateInvoicePage = lazy(() => import('./pages/UpdateInvoicePage/UpdateInvoicePage.page'));
 
 function App() {
@@ -25,12 +25,12 @@ function App() {
             <CreateInvoicePage />
           </Suspense>
         </Route>
-        {/* <Route path="/invoices/:id">
+        <Route path="/invoices/:id">
           <Suspense fallback={fallbackComponent()}>
             <InvoicePage />
           </Suspense>
         </Route>
-        
+        {/* 
         <Route path="/update-invoice/:id">
           <Suspense fallback={fallbackComponent()}>
             <UpdateInvoicePage />
