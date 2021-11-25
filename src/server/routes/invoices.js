@@ -86,4 +86,21 @@ router.post('/create-services/:id', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    await pool.query(
+      `
+        DELETE FROM invoices
+        WHERE id = '${id}' 
+      `
+    );
+
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).json({ error: 'Greska u aplikaciji!' });
+  }
+});
+
 module.exports = router;

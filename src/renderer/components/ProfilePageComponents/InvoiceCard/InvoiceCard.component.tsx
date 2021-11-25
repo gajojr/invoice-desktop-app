@@ -10,7 +10,9 @@ const InvoiceCard = ({ invoice }: { invoice: InvoiceInterface }) => {
   const deleteInvoice = async (id: number) => {
     if (window.confirm('Da li zelite da obrisete ovu fakturu?')) {
       try {
-        const response = await axios.delete(`/invoices/${id}`);
+        const response = await axios.delete(
+          `http://localhost:5000/invoices/${id}`
+        );
         console.log(response);
         if (response.status === 200) {
           message.success('Faktura obrisana!');
@@ -20,9 +22,6 @@ const InvoiceCard = ({ invoice }: { invoice: InvoiceInterface }) => {
         }
       } catch (err: any) {
         message.error('Greska u aplikaciji!');
-
-        sessionStorage.clear();
-        window.location.href = '/';
       }
     }
   };
