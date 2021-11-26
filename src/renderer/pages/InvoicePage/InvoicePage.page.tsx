@@ -8,7 +8,7 @@ const InvoicePage = () => {
 
   return (
     <main>
-      <GeneratePDFButton id={id} />
+      <GeneratePDFButton />
       <InvoicePaper id={id} />
     </main>
   );
