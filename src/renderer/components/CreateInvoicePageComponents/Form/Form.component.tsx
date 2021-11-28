@@ -20,6 +20,8 @@ import {
 import ServiceInterface from './ServiceInterface';
 
 const Form = () => {
+  const [form] = FormElement.useForm();
+
   const [stampValue, setStampValue] = useState<number>(1);
   const [signValue, setSignValue] = useState<number>(1);
   const [pdvValue, setPdvValue] = useState<number>(1);
@@ -110,10 +112,12 @@ const Form = () => {
 
   const cleanServiceInputs = () => {
     // empty all inputs for service creation
-    (document.getElementById('serviceType') as HTMLInputElement).value = '';
-    (document.getElementById('unit') as HTMLInputElement).value = '';
-    (document.getElementById('amount') as HTMLInputElement).value = '';
-    (document.getElementById('pricePerUnit') as HTMLInputElement).value = '';
+    form.setFieldsValue({
+      serviceType: '',
+      unit: '',
+      amount: '',
+      pricePerUnit: '',
+    });
   };
 
   function addService(): void {
@@ -129,7 +133,7 @@ const Form = () => {
     );
 
     if (!checkServiceInputs(serviceType, unit, amount, pricePerUnit)) {
-      message.error('You must fill in all the fields to add service');
+      message.error('Moras popuniti sva polja da bi dodao novu uslugu!');
       return;
     }
 
@@ -142,7 +146,7 @@ const Form = () => {
   }
 
   const removeService = (idx: number) => {
-    if (window.confirm('Do you want to remove this service?')) {
+    if (window.confirm('Da li zelis da uklonis ovu uslugu?')) {
       const newServices = services.filter(
         (service: ServiceInterface, index: number) => idx !== index
       );
@@ -151,7 +155,7 @@ const Form = () => {
   };
 
   return (
-    <FormElement onFinish={onFinish}>
+    <FormElement form={form} onFinish={onFinish}>
       <FormCaption>Kreiraj fakturu</FormCaption>
 
       <FormElement.Item

@@ -124,10 +124,6 @@ const Form = ({ id }: { id: string }) => {
       amount: '',
       pricePerUnit: '',
     });
-    // (document.getElementById('serviceType') as HTMLInputElement).value = '';
-    // (document.getElementById('unit') as HTMLInputElement).value = '';
-    // (document.getElementById('amount') as HTMLInputElement).value = '';
-    // (document.getElementById('pricePerUnit') as HTMLInputElement).value = '';
   };
 
   const removeService = (idx: number) => {
