@@ -8,9 +8,9 @@ export const FormElement = styled(Form)`
   justify-content: center;
   flex-direction: column;
   border: 2px solid gray;
-  padding: 35px;
-  border-radius: 10px;
   background-color: #face7f;
+  border-radius: 10px;
+  padding: 35px;
 `;
 
 export const FormCaption = styled.h2`
