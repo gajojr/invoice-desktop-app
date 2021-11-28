@@ -4,7 +4,7 @@ import { message } from 'antd';
 
 import { InvoiceInterface } from '../InvoiceInterface';
 
-import { StyledCard, DeleteButton, UpdateButton } from './InvoiceCard.style';
+import { StyledCard, DeleteButton, UpdateLink } from './InvoiceCard.style';
 
 const InvoiceCard = ({ invoice }: { invoice: InvoiceInterface }) => {
   const deleteInvoice = async (id: number) => {
@@ -33,13 +33,7 @@ const InvoiceCard = ({ invoice }: { invoice: InvoiceInterface }) => {
       extra={
         <div>
           <Link to={`/invoices/${invoice.id}`}>Pogledaj</Link>
-          <UpdateButton
-            onClick={() => {
-              window.location.href = `/update-invoice/${invoice.id}`;
-            }}
-          >
-            Azuriraj
-          </UpdateButton>
+          <UpdateLink to={`/update-invoice/${invoice.id}`}>Azuriraj</UpdateLink>
           <DeleteButton
             type="primary"
             onClick={() => deleteInvoice(invoice.id)}

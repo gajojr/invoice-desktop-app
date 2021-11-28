@@ -38,7 +38,7 @@ router.get('/:id', async (req, res) => {
           closing_date AS "closingDate",
           stamp_needed AS "stampNeeded",
           sign_needed AS "signNeeded",
-          invoices.pdv AS pdv
+          pdv AS pdv
         FROM invoices
         WHERE id = '${id}';
       `
@@ -124,6 +124,52 @@ router.post('/create-services/:id', async (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     res.status(500).json({ error: 'Greska u aplikaciji!' });
+  }
+});
+
+router.post('/update-invoice/:id', async (req, res) => {
+  try {
+    const invoiceId = req.params.id;
+    const { body } = req;
+    const services = body.services.map((service) =>
+      Object.values({ invoiceId, ...service })
+    );
+
+    // delete all services connected with this invoice and then insert them
+    await pool.query(
+      `
+        DELETE FROM services 
+        WHERE invoice_id = '${invoiceId}';
+      `
+    );
+
+    await pool.query(
+      `
+        UPDATE invoices 
+        SET name = '${body.invoiceName}',
+            company_name = '${body.companyName}',
+            client_address = '${body.address}',
+            client_city = '${body.city}',
+            client_pib = '${body.pib}',
+            closing_date = '${body.closingDate}',
+            stamp_needed = '${body.stamp}',
+            sign_needed = '${body.sign}',
+            pdv = '${body.pdv}'
+        WHERE id = '${invoiceId}';
+      `
+    );
+
+    await pool.query(
+      format(
+        'INSERT INTO services(invoice_id, service_type, unit, amount, price_per_unit)VALUES %L',
+        services
+      ),
+      []
+    );
+
+    res.sendStatus(200);
+  } catch (err) {
+    res.json({ error: 'Server error occurred' });
   }
 });
 

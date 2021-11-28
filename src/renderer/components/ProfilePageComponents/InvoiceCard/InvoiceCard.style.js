@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { Button, Card } from 'antd';
+import { Link } from 'react-router-dom';
 
 export const StyledCard = styled(Card)`
   flex: 1;
@@ -30,8 +31,10 @@ export const DeleteButton = styled(Button)`
   }
 `;
 
-export const UpdateButton = styled(Button)`
+export const UpdateLink = styled(Link)`
   margin-left: 5px;
+  padding: 8px;
+  border-radius: 2px;
   background-color: #00b300;
   color: #fff;
   border: none;

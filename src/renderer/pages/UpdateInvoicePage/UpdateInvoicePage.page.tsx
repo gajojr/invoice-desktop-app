@@ -1,17 +1,18 @@
 import { useParams } from 'react-router-dom';
 
-import Form from '../../components/UpdataInvoicePageCompoenents/Form/Form.component';
+import Form from '../../components/UpdateInvoicePageComponents/Form/Form.component';
 
 import { UpdateInvoicePageContainer } from './UpdateInvoicePage.style';
 
 const UpdateInvoicePage = () => {
-    const { id }: { id: string } = useParams();
+  const { id }: { id: string } = useParams();
+  console.log('Ide gsa', id);
 
-    return (
-        <UpdateInvoicePageContainer>
-            <Form id={id} />
-        </UpdateInvoicePageContainer>
-    )
-}
+  return (
+    <UpdateInvoicePageContainer>
+      <Form id={id} />
+    </UpdateInvoicePageContainer>
+  );
+};
 
 export default UpdateInvoicePage;
