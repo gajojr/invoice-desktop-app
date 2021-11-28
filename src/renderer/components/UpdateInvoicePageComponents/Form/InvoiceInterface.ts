@@ -3,7 +3,7 @@ export default interface InvoiceInterface {
   toCity: string;
   toPib: string;
   closingDate: string;
-  fromCompany: string;
+  toCompany: string;
   id: number;
   invoiceName: string;
   pdv: boolean;

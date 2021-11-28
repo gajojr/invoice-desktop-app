@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-boolean-value */
 import { useState, useEffect } from 'react';
 
 import axios from 'axios';
+import moment from 'moment';
 
 import { DatePicker, Input, Radio, message, RadioChangeEvent } from 'antd';
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
@@ -23,6 +25,8 @@ import {
 } from './Form.style';
 
 const Form = ({ id }: { id: string }) => {
+  const [form] = FormElement.useForm();
+
   const [stampValue, setStampValue] = useState<boolean>(true);
   const [signValue, setSignValue] = useState<boolean>(true);
   const [pdvValue, setPdvValue] = useState<boolean>(true);
@@ -30,18 +34,14 @@ const Form = ({ id }: { id: string }) => {
   const [services, setServices] = useState<ServiceInterface[]>([]);
 
   const fillInTheInputs = (invoiceData: InvoiceInterface) => {
-    (document.getElementById('invoiceName') as HTMLInputElement).value =
-      invoiceData.invoiceName;
-    (document.getElementById('companyName') as HTMLInputElement).value =
-      invoiceData.fromCompany;
-    (document.getElementById('address') as HTMLInputElement).value =
-      invoiceData.toAddress;
-    (document.getElementById('city') as HTMLInputElement).value =
-      invoiceData.toCity;
-    (document.getElementById('pib') as HTMLInputElement).value =
-      invoiceData.toPib;
-    (document.getElementById('closingDate') as HTMLInputElement).value =
-      invoiceData.closingDate;
+    form.setFieldsValue({
+      invoiceName: invoiceData.invoiceName,
+      companyName: invoiceData.toCompany,
+      address: invoiceData.toAddress,
+      city: invoiceData.toCity,
+      pib: invoiceData.toPib,
+      closingDate: moment(invoiceData.closingDate),
+    });
 
     setStampValue(invoiceData.stampNeeded);
     setSignValue(invoiceData.signNeeded);
@@ -118,10 +118,16 @@ const Form = ({ id }: { id: string }) => {
 
   const cleanServiceInputs = () => {
     // empty all inputs for service creation
-    (document.getElementById('serviceType') as HTMLInputElement).value = '';
-    (document.getElementById('unit') as HTMLInputElement).value = '';
-    (document.getElementById('amount') as HTMLInputElement).value = '';
-    (document.getElementById('pricePerUnit') as HTMLInputElement).value = '';
+    form.setFieldsValue({
+      serviceType: '',
+      unit: '',
+      amount: '',
+      pricePerUnit: '',
+    });
+    // (document.getElementById('serviceType') as HTMLInputElement).value = '';
+    // (document.getElementById('unit') as HTMLInputElement).value = '';
+    // (document.getElementById('amount') as HTMLInputElement).value = '';
+    // (document.getElementById('pricePerUnit') as HTMLInputElement).value = '';
   };
 
   const removeService = (idx: number) => {
@@ -159,12 +165,13 @@ const Form = ({ id }: { id: string }) => {
   };
 
   return (
-    <FormElement onFinish={onFinish}>
+    <FormElement form={form} onFinish={onFinish}>
       <FormCaption>Azuriraj fakturu</FormCaption>
 
       <FormElement.Item
         label="Ime fakture"
         name="invoiceName"
+        id="invoiceName"
         rules={[
           {
             required: true,

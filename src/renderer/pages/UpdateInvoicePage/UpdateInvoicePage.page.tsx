@@ -6,7 +6,6 @@ import { UpdateInvoicePageContainer } from './UpdateInvoicePage.style';
 
 const UpdateInvoicePage = () => {
   const { id }: { id: string } = useParams();
-  console.log('Ide gsa', id);
 
   return (
     <UpdateInvoicePageContainer>
